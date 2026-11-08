@@ -42,9 +42,13 @@ export default async function handler(req, res) {
     const result = await response.json()
 
     if (!response.ok) {
-      console.error('ReqRes response:', result)
+    console.error('ReqRes status:', response.status)
+    console.error('ReqRes error:', result)
 
-      return res.status(response.status).json(result)
+    return res.status(response.status).json({
+        message: 'ReqRes request failed',
+        details: result,
+    })
     }
 
     return res.status(201).json(result)
